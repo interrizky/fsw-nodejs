@@ -110,17 +110,14 @@
         fetch(
           'https://itunes.apple.com/search?term=' +
             params +
-            '&country=ID&media=music&limit=20'
+            '&country=ID&media=music&limit=50'
         )
           .then(function (response) {
-            if (response.status == 200) {
-              return response.json()
-            } else {
-              console.log(response)
-            }
+            console.log(response)
+            return response.json()
           })
           .then(function (data) {
-            // console.log(data)
+            console.log(data)
             buildList(data.results)
           })
           .catch(function (error) {
@@ -184,7 +181,7 @@
           }
         }
 
-        console.log(track_list)
+        //console.log(track_list)
 
         let playing = document.querySelectorAll(
           '.wrapper-list .box-music-list .button-play .button-playing'
