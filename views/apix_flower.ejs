@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plant Task - Ridho</title>
+    <link
+      rel="icon"
+      href="/flower_asset/images/KB_Bukopin.jpeg"
+      type="image/x-icon"
+    />
+    <!-- bootstrap -->
+    <!-- CSS only -->
+    <link
+      rel="stylesheet"
+      href="/flower_asset/plugins/bootstrap/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="/flower_asset/css/styles.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row navbar">
+        <div class="logo col-7">
+          <a
+            class="text-logo"
+            style="margin-left: 35px; font-weight: bold"
+            href="/flower"
+            >LOGO</a
+          >
+        </div>
+        <div class="menu col-5 d-flex flex-row-reverse justify-content-center">
+          <button type="button" class="btn btn-outline-light">SUBSCRIBE</button>
+          <div class="p-2 bd-highlight">ABOUT</div>
+          <div class="p-2 bd-highlight">PRODUCT</div>
+          <div class="p-2 bd-highlight">ARTICLES</div>
+        </div>
+      </div>
+      <div class="row banner">
+        <div
+          class="col-12 wrapper-banner image-banner"
+          style="background-image: url(/flower_asset/images/jumbotron.png)"
+        >
+          <div class="wrapper-text-banner">
+            <h1 class="title-banner" style="font-size: 48px">
+              All Products Here
+            </h1>
+            <p class="subtitle-banner" style="font-size: 18px">
+              We brings our best product to you
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row judul-search-product" style="text-align: center">
+        <p
+          class="preambule col-md-12"
+          style="font-size: 24px; margin-top: 24px"
+        >
+          PRODUCTS
+        </p>
+      </div>
+      <div class="row list-products"></div>
+      <div class="row page-number">
+        <div class="wrapper-button-page d-flex justify-content-center"></div>
+      </div>
+
+      <div class="row footer">
+        <div class="menu-footer d-flex flex-row-reverse align-items-center">
+          <div class="p-2 bd-highlight">Home</div>
+          <div class="p-2 bd-highlight">Articles</div>
+          <div class="p-2 bd-highlight">About</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/flower_asset/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/flower_asset/js/popper.min.js"></script>
+    <script src="/flower_asset/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+  <script type="text/javascript">
+    /* define karena sering dipake  */
+    let listProducts = document.querySelector('.list-products')
+
+    let flower_list = [
+      {
+        nama: 'Bunga 1',
+        harga: '100000',
+        poster: '/flower_asset/images/pngfind-1-transparent.png'
+      },
+      {
+        nama: 'Bunga 2',
+        harga: '200000',
+        poster: '/flower_asset/images/pngfind-2-transparent.png'
+      },
+      {
+        nama: 'Bunga 3',
+        harga: '300000',
+        poster: '/flower_asset/images/pngfind-3-transparent.png'
+      },
+      {
+        nama: 'Bunga 4',
+        harga: '400000',
+        poster: '/flower_asset/images/pngfind-4-transparent.png'
+      },
+      {
+        nama: 'Bunga 5',
+        harga: '500000',
+        poster: '/flower_asset/images/pngfind-5-transparent.png'
+      },
+      {
+        nama: 'Bunga 6',
+        harga: '600000',
+        poster: '/flower_asset/images/pngfind-6-transparent.png'
+      },
+      {
+        nama: 'Bunga 7',
+        harga: '700000',
+        poster: '/flower_asset/images/pngfind-7-transparent.png'
+      },
+      {
+        nama: 'Bunga 8',
+        harga: '800000',
+        poster: '/flower_asset/images/pngfind-8-transparent.png'
+      },
+      {
+        nama: 'Bunga 9',
+        harga: '900000',
+        poster: '/flower_asset/images/pngfind-9-transparent.png'
+      }
+    ]
+
+    searchMe()
+
+    function searchMe() {
+      // State
+      // Number of products
+      const numberOfItems = flower_list.length
+      const numberPerPage = 9
+      const currentPage = this.page
+
+      // Number of pages
+      const numberOfPages = Math.ceil(numberOfItems / numberPerPage)
+
+      function accomodatePage(clickedPage) {
+        if (clickedPage <= 1) {
+          return clickedPage + 1
+        }
+        if (clickedPage >= numberOfPages) {
+          return clickedPage - 1
+        }
+        return clickedPage
+      }
+
+      /* populate pagination */
+      function buildPagination(clickedPage) {
+        let rowPageNumber = document.querySelector(
+          '.page-number .wrapper-button-page'
+        )
+        rowPageNumber.innerHTML = ''
+        // let rowPageNumber = document.querySelector('.page-number .nav-page-number .pagination');
+        const currPageNum = accomodatePage(clickedPage)
+        if (numberOfPages >= 3) {
+          for (let i = -1; i < 2; i++) {
+            rowPageNumber.insertAdjacentHTML(
+              'beforeend',
+              `
+                    <button id="tombol-${currPageNum + i}" class="tombol-${
+                currPageNum + i
+              } btn-pagination btn btn-outline-dark" style="margin:10px;" value="${
+                currPageNum + i
+              }">${currPageNum + i}</button>
+                  `
+            )
+          }
+        } else {
+          for (let i = 0; i < numberOfPages; i++) {
+            rowPageNumber.insertAdjacentHTML(
+              'beforeend',
+              `
+                    <button id="tombol-${i + 1}" class="tombol-${
+                i + 1
+              } btn-pagination btn btn-outline-dark" style="margin:10px;" value="${
+                i + 1
+              }">${i + 1}</button>
+                  `
+            )
+          }
+        }
+      }
+
+      buildPagination(currentPage)
+
+      let clickedPage = 1
+      if (numberPerPage < 9) {
+        numberPerPage = flower_list.length
+      }
+
+      trimStart = (clickedPage - 1) * numberPerPage
+      trimEnd = trimStart + numberPerPage
+      if (trimStart + numberPerPage > flower_list.length) {
+        trimEnd = flower_list.length
+      }
+
+      $('.btn-pagination').click(function () {
+        clickedPage = $(this).val()
+        console.log('Page clicked on ' + clickedPage)
+        // buildPagination(clickedPage);
+
+        if (numberPerPage < 9) {
+          numberPerPage = flower_list.length
+        }
+
+        console.log(numberPerPage)
+
+        trimStart = (clickedPage - 1) * numberPerPage
+        trimEnd = trimStart + numberPerPage
+        if (trimStart + numberPerPage > flower_list.length) {
+          trimEnd = flower_list.length
+        }
+
+        console.log('Dari Button', trimStart, trimEnd)
+
+        listProducts.innerHTML = ''
+
+        console.log(flower_list[trimStart].poster)
+
+        for (let z = trimStart; z < trimEnd; z++) {
+          /* populate kotak wrapper pake iterasi append appendChild via API call */
+          let newDivSatu = document.createElement('div')
+          newDivSatu.className =
+            'kotak-wrapper wrapper-product-' +
+            (z + 1) +
+            ' shadow-lg rounded col-4'
+          newDivSatu.style.cssText = 'background-color: #fafafa;'
+
+          listProducts.appendChild(newDivSatu)
+
+          let pointerDivSatu = document.querySelector(
+            '.wrapper-product-' + (z + 1)
+          )
+          let newDivDuaSatu = document.createElement('div')
+          newDivDuaSatu.id = 'dsp-foreground-' + (z + 1)
+          newDivDuaSatu.className = 'display-depan dsp-foreground-' + (z + 1)
+          newDivDuaSatu.style.cssText = 'position: absolute;'
+
+          pointerDivSatu.appendChild(newDivDuaSatu)
+
+          let pointerDivDuaSatu = document.querySelector(
+            '.dsp-foreground-' + (z + 1)
+          )
+          let newImage = document.createElement('img')
+
+          if (flower_list[z].poster == 'N/A') {
+            flower_list[z].poster =
+              '/flower_asset/images/pngfind-9-transparent.png'
+          }
+
+          newImage.src = flower_list[z].poster
+          newImage.style.cssText = 'width:200px; height:175px'
+
+          pointerDivDuaSatu.appendChild(newImage)
+
+          let newP = document.createElement('p')
+          newP.className = 'text-wrap'
+          newP.style.cssText = 'margin-top: 16px; width:200px;'
+          newP.textContent = flower_list[z].nama
+          pointerDivDuaSatu.appendChild(newP)
+          /* end */
+
+          /* bikin div button untuk deskripsi pake insertAdjacentHTML */
+          pointerDivDuaSatu.insertAdjacentHTML(
+            'afterend',
+            `
+                <div id="dsp-background-${z + 1}" class="dsp-background-${
+              z + 1
+            }" style="position: relative; display: none;">
+                  <a href="/flower-ejs?nama=${flower_list[z].nama}&harga=${
+              flower_list[z].harga
+            }&poster=${flower_list[z].poster}">
+                    <button class="tombol-info-${
+                      z + 1
+                    } btn btn-light w-100">HRef</button>
+                  </a>
+                  <br/>
+                  <button data-toggle="modal" data-target="#exampleModalCenter-${
+                    z + 1
+                  }" class="tombol-info-${
+              z + 1
+            } btn btn-dark w-100">Modal</button>                
+                </div>            
+              `
+          )
+          /* end bikin div-button pake insertAdjacentHTML */
+
+          /* klo mau pake modal pake ini */
+          let testingButton = document.querySelector(
+            '.dsp-background-' + (z + 1)
+          )
+          // console.log(testingButton);
+          testingButton.addEventListener('click', function () {
+            $('#exampleModalCenter-' + (z + 1)).modal('show')
+          })
+          /* end */
+
+          /* bikin div modal */
+          document
+            .querySelector('.wrapper-product-' + (z + 1))
+            .insertAdjacentHTML(
+              'beforebegin',
+              `
+              <div class="modal fade" id="exampleModalCenter-${
+                z + 1
+              }" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title mx-auto" id="exampleModalLongTitle"><i>${
+                        flower_list[z].nama
+                      }</i></h5>
+                    </div>
+                    <div class="modal-body">
+                      <p class="text-left">Nama: <i>${
+                        flower_list[z].nama
+                      }</i></p>
+                      <p class="text-left">Harga <i>${
+                        flower_list[z].harga
+                      }</i></p>
+                    </div>
+                  </div>
+                </div>
+              </div>    
+              `
+            )
+          /* end bikin div modal */
+
+          /* Bikin effect hoverin hoverout */
+          let pointerDivDuaDua = document.querySelector(
+            '.dsp-background-' + (z + 1)
+          )
+          pointerDivSatu.addEventListener('mouseover', function () {
+            pointerDivDuaSatu.style.cssText +=
+              'background-color: grey; opacity: 30%;'
+            pointerDivDuaDua.style.cssText = 'position: relative;'
+          })
+          pointerDivSatu.addEventListener('mouseout', function () {
+            pointerDivDuaSatu.style.cssText = 'position: absolute;'
+            pointerDivDuaDua.style.cssText =
+              'position: relative; display: none;'
+          })
+          /* end */
+        }
+      })
+
+      for (let z = trimStart; z < trimEnd; z++) {
+        /* populate kotak wrapper pake iterasi append appendChild via API call */
+        let newDivSatu = document.createElement('div')
+        newDivSatu.className =
+          'kotak-wrapper wrapper-product-' +
+          (z + 1) +
+          ' shadow-lg rounded col-4'
+        newDivSatu.style.cssText = 'background-color: #fafafa;'
+
+        listProducts.appendChild(newDivSatu)
+
+        let pointerDivSatu = document.querySelector(
+          '.wrapper-product-' + (z + 1)
+        )
+        let newDivDuaSatu = document.createElement('div')
+        newDivDuaSatu.id = 'dsp-foreground-' + (z + 1)
+        newDivDuaSatu.className = 'display-depan dsp-foreground-' + (z + 1)
+        newDivDuaSatu.style.cssText = 'position: absolute;'
+
+        pointerDivSatu.appendChild(newDivDuaSatu)
+
+        let pointerDivDuaSatu = document.querySelector(
+          '.dsp-foreground-' + (z + 1)
+        )
+        let newImage = document.createElement('img')
+
+        if (flower_list[z].poster == 'N/A') {
+          flower_list[z].poster =
+            '/flower_asset/images/pngfind-9-transparent.png'
+        }
+
+        newImage.src = flower_list[z].poster
+        newImage.style.cssText = 'width:200px; height:175px'
+
+        pointerDivDuaSatu.appendChild(newImage)
+
+        let newP = document.createElement('p')
+        newP.className = 'text-wrap'
+        newP.style.cssText = 'margin-top: 16px; width:200px;'
+        newP.textContent = flower_list[z].nama
+        pointerDivDuaSatu.appendChild(newP)
+        /* end */
+
+        /* bikin div button untuk deskripsi pake insertAdjacentHTML */
+        pointerDivDuaSatu.insertAdjacentHTML(
+          'afterend',
+          `
+              <div id="dsp-background-${z + 1}" class="dsp-background-${
+            z + 1
+          }" style="position: relative; display: none;">
+                <a href="/flower-ejs?nama=${flower_list[z].nama}&harga=${
+            flower_list[z].harga
+          }&poster=${flower_list[z].poster}">
+                  <button class="tombol-info-${
+                    z + 1
+                  } btn btn-light w-100">HRef</button>
+                </a>
+                <br/>
+                <button data-toggle="modal" data-target="#exampleModalCenter-${
+                  z + 1
+                }" class="tombol-info-${
+            z + 1
+          } btn btn-dark w-100">Modal</button>                
+              </div>            
+            `
+        )
+        /* end bikin div-button pake insertAdjacentHTML */
+
+        /* klo mau pake modal pake ini */
+        let testingButton = document.querySelector('.dsp-background-' + (z + 1))
+        // console.log(testingButton);
+        testingButton.addEventListener('click', function () {
+          $('#exampleModalCenter-' + (z + 1)).modal('show')
+        })
+        /* end */
+
+        /* bikin div modal */
+        document
+          .querySelector('.wrapper-product-' + (z + 1))
+          .insertAdjacentHTML(
+            'beforebegin',
+            `
+            <div class="modal fade" id="exampleModalCenter-${
+              z + 1
+            }" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title mx-auto" id="exampleModalLongTitle"><i>${
+                      flower_list[z].nama
+                    }</i></h5>
+                  </div>
+                  <div class="modal-body">
+                    <p class="text-left">Nama: <i>${flower_list[z].nama}</i></p>
+                    <p class="text-left">Harga: <i>${
+                      flower_list[z].harga
+                    }</i></p>
+                  </div>
+                </div>
+              </div>
+            </div>    
+            `
+          )
+        /* end bikin div modal */
+
+        /* Bikin effect hoverin hoverout */
+        let pointerDivDuaDua = document.querySelector(
+          '.dsp-background-' + (z + 1)
+        )
+        pointerDivSatu.addEventListener('mouseover', function () {
+          pointerDivDuaSatu.style.cssText +=
+            'background-color: grey; opacity: 30%;'
+          pointerDivDuaDua.style.cssText = 'position: relative;'
+        })
+        pointerDivSatu.addEventListener('mouseout', function () {
+          pointerDivDuaSatu.style.cssText = 'position: absolute;'
+          pointerDivDuaDua.style.cssText = 'position: relative; display: none;'
+        })
+        /* end */
+      }
+    }
+  </script>
+</html>

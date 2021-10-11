@@ -1,0 +1,19 @@
+{
+  "name": "test_node",
+  "version": "1.0.0",
+  "description": "Testing Node JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon serverx.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rizky Ridho",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "html": "^1.0.0",
+    "jade": "^0.29.0",
+    "nodemon": "^2.0.13"
+  }
+}

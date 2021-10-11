@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iTunes-X RIDHO</title>
+    <link
+      rel="icon"
+      href="/itunes_asset/images/KB_Bukopin.jpeg"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="/itunes_asset/plugins/bootstrap/css/bootstrap.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/itunes_asset/css/itunesx.css" />
+  </head>
+  <body>
+    <section id="iTunes">
+      <div class="container-fluid">
+        <div class="row box-content search-box">
+          <div class="search-bar">
+            <input
+              type="text"
+              class="form-control input-search"
+              placeholder="search your music here..."
+            />
+          </div>
+        </div>
+
+        <div class="row box-content list-music">
+          <div class="title-box">
+            <h4>List Of Music</h4>
+          </div>
+          <div class="wrapper-list"></div>
+        </div>
+
+        <div class="row box-content music-player">
+          <div class="wrapper-music-player">
+            <div class="wrapper-box">
+              <div class="image-music">
+                <div class="image" style="background-image: url()"></div>
+              </div>
+              <div class="box-player">
+                <div class="description-music">
+                  <h4 class="title-player"></h4>
+                  <span class="artist-name">
+                    <p>Artist :</p>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="player-music">
+              <div class="range-box">
+                <audio
+                  controls="controls"
+                  class="audio-player w-50 mx-auto col-12"
+                  src=""
+                  type="audio/mpeg"
+                  style="display: none"
+                ></audio>
+                <div class="current-time">00:00</div>
+                <input
+                  type="range"
+                  id="music-duration"
+                  min="1"
+                  max="100"
+                  value="0"
+                  class="seek_slider"
+                />
+                <div class="total-duration">00:00</div>
+              </div>
+              <div class="button-box">
+                <button id="prev" class="prev">Prev</button>
+                <button id="pause" class="pause">Pause</button>
+                <button id="play" class="play">Play</button>
+                <button id="next" class="next">Next</button>
+              </div>
+            </div>
+            <div class="close-button">X</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+      let textSearch = document.querySelector('.input-search')
+
+      let wrapperList = document.querySelector('.list-music .wrapper-list')
+      let divBoxPlayer = document.querySelector(
+        '.box-content.music-player .wrapper-music-player'
+      )
+
+      textSearch.addEventListener('keyup', function (event) {
+        if (event.keyCode === 13) {
+          wrapperList.innerHTML = ''
+          searchList(textSearch.value)
+          textSearch.value = ''
+        }
+      })
+
+      searchList()
+
+      function searchList(params = 'Indonesia') {
+        fetch(
+          'https://itunes.apple.com/search?term=' +
+            params +
+            '&country=ID&media=music&limit=20'
+        )
+          .then(function (response) {
+            if (response.status == 200) {
+              return response.json()
+            } else {
+              console.log(response)
+            }
+          })
+          .then(function (data) {
+            // console.log(data)
+            buildList(data.results)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
+
+      let track_list = []
+
+      function buildList(arrayList) {
+        for (let i = 0; i < arrayList.length; i++) {
+          wrapperList.insertAdjacentHTML(
+            'beforeend',
+            `
+          <div
+            class="box-music-list list-number-${i}"
+            indexdata=${i}
+            iddata="${arrayList[i].collectionId}
+            id="list-${i}"
+          >
+            <div class="images-box">
+              <div
+                class="images"
+                style="
+                  background-image: url(${arrayList[i].artworkUrl100});
+                "
+              ></div>
+            </div>
+            <div class="desc-box">
+              <h4 class="title">
+                ${arrayList[i].trackName}
+              </h4>
+              <span class="artist">
+                ${arrayList[i].artistName}
+              </span>
+              <span class="album">
+                ${arrayList[i].collectionName}
+              </span>
+            </div>
+            <div class="button-play">
+              <button type="button" value="${i}" class="button-playing btn-play-${i} btn btn-outline-light">
+                <i class="bi-play-circle"></i>
+                PLAY
+              </button>
+            </div>
+            <div class="button-stop hide">
+              <button type="button" value="${i}" class="button-stopping btn-stop-${i} btn btn-outline-danger">
+                <i class="bi-stop-circle-fill"></i>
+                STOP
+              </button>
+            </div>
+          `
+          )
+
+          // array untuk detail-detail description di audio player
+          track_list[i] = {
+            title: arrayList[i].trackName,
+            artist: arrayList[i].artistName,
+            artwork60: arrayList[i].artworkUrl60,
+            path: arrayList[i].previewUrl
+          }
+        }
+
+        console.log(track_list)
+
+        let playing = document.querySelectorAll(
+          '.wrapper-list .box-music-list .button-play .button-playing'
+        )
+
+        let divPlay = document.querySelectorAll(
+          '.wrapper-list .box-music-list .button-play'
+        )
+
+        let divStop = document.querySelectorAll(
+          '.wrapper-list .box-music-list .button-stop'
+        )
+
+        let stopping = document.querySelectorAll(
+          '.wrapper-list .box-music-list .button-stop .button-stopping'
+        )
+
+        let minPoster = document.querySelector('.wrapper-box .image-music')
+
+        let title_player = document.querySelector(
+          '.box-player .description-music .title-player'
+        )
+
+        let artist_name = document.querySelector(
+          '.box-player .description-music .artist-name'
+        )
+
+        let button_prev = document.querySelector(
+          '.wrapper-music-player .player-music .button-box .prev'
+        )
+
+        let button_pause = document.querySelector(
+          '.wrapper-music-player .player-music .button-box .pause'
+        )
+
+        let button_play = document.querySelector(
+          '.wrapper-music-player .player-music .button-box .play'
+        )
+
+        let button_next = document.querySelector(
+          '.wrapper-music-player .player-music .button-box .next'
+        )
+
+        let curr_track = document.querySelector('.range-box .audio-player')
+
+        let seek_slider = document.querySelector('.seek_slider')
+        let curr_time = document.querySelector('.current-time')
+        let total_duration = document.querySelector('.total-duration')
+
+        // Specify globally used values
+        let track_index = 0
+        let isPlaying = false
+        let updateTimer
+
+        $('.button-playing').click(function () {
+          track_index = parseInt($(this).val())
+          let i = track_index
+
+          /* button */
+          /* button play+stop all */
+          for (let z = 0; z < track_list.length; z++) {
+            divPlay[z].classList.remove('hide')
+            divStop[z].classList.add('hide')
+          }
+          /* only specific index that playing change the state */
+          divPlay[i].classList.add('hide')
+          divStop[i].classList.remove('hide')
+
+          /* music player */
+          divBoxPlayer.classList.add('active')
+          divBoxPlayer.classList.remove('hide')
+
+          /* load the loadTrack and play */
+          loadTrack(i)
+          playTrack()
+        })
+
+        /* tombol X di music player */
+        $('.close-button').click(function () {
+          /* music player */
+          divBoxPlayer.classList.remove('active')
+          divBoxPlayer.classList.add('hide')
+
+          /* stop playing */
+          pauseTrack()
+
+          /* button play+stop all */
+          for (let i = 0; i < track_list.length; i++) {
+            divPlay[i].classList.remove('hide')
+            divStop[i].classList.add('hide')
+          }
+        })
+
+        $('.button-stopping').click(function () {
+          let i = $(this).val()
+          divPlay[i].classList.remove('hide')
+          divStop[i].classList.add('hide')
+
+          /* music player */
+          divBoxPlayer.classList.remove('active')
+          divBoxPlayer.classList.add('hide')
+
+          /* button play+stop all */
+          divPlay[i].classList.remove('hide')
+          divStop[i].classList.add('hide')
+
+          /* stop playing */
+          pauseTrack()
+        })
+
+        function loadTrack(track_index) {
+          // Clear the previous seek timer
+          clearInterval(updateTimer)
+          resetValues()
+
+          // Load a new track
+          curr_track.src = track_list[track_index].path
+          curr_track.load()
+
+          console.log()
+
+          // Update details of the track
+          minPoster.innerHTML =
+            `
+            <div class="image-music">
+              <div class="image" style="background-image: url(` +
+            track_list[track_index].artwork60 +
+            `)"></div>
+            </div>
+          `
+          title_player.innerHTML =
+            `
+            <h4 class="title-player">
+              ` +
+            track_list[track_index].title +
+            `
+            </h4>
+          `
+          artist_name.innerHTML =
+            `
+            <span class="artist-name">
+              <p>Artist :</p>
+              ` +
+            track_list[track_index].artist +
+            `
+            </span>
+          `
+
+          //set button action
+          button_prev.addEventListener('click', prevTrack)
+          button_pause.addEventListener('click', playpauseTrack)
+          button_play.addEventListener('click', playpauseTrack)
+          button_next.addEventListener('click', nextTrack)
+          seek_slider.addEventListener('change', seekTo)
+
+          // Set an interval of 1000 milliseconds
+          // for updating the seek slider
+          updateTimer = setInterval(seekUpdate, 1000)
+
+          // Move to the next track if the current finishes playing
+          // using the 'ended' event
+          curr_track.addEventListener('ended', nextTrack)
+        }
+
+        // Function to reset all values to their default
+        function resetValues() {
+          curr_time.textContent = '00:00'
+          total_duration.textContent = '00:00'
+          seek_slider.value = 0
+        }
+
+        function playpauseTrack() {
+          // Switch between playing and pausing
+          // depending on the current state
+          if (!isPlaying) playTrack()
+          else pauseTrack()
+        }
+
+        function playTrack() {
+          // Play the loaded track
+          curr_track.play()
+          isPlaying = true
+
+          // Replace icon with the pause icon
+          // playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>'
+        }
+
+        function pauseTrack() {
+          // Pause the loaded track
+          curr_track.pause()
+          isPlaying = false
+
+          // Replace icon with the play icon
+          // playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>')
+        }
+
+        function nextTrack() {
+          // Go back to the first track if the
+          // current one is the last in the track list
+          if (track_index < track_list.length - 1) {
+            track_index += 1
+
+            // indeks sebelumnya
+            divStop[track_index - 1].classList.add('hide')
+            divPlay[track_index - 1].classList.remove('hide')
+            // indeks saat ini
+            divStop[track_index].classList.remove('hide')
+            divPlay[track_index].classList.add('hide')
+          } else {
+            track_index = 0
+
+            // indeks sebelumnya
+            divStop[track_list.length - 1].classList.add('hide')
+            divPlay[track_list.length - 1].classList.remove('hide')
+            // indeks saat ini
+            divStop[track_index].classList.remove('hide')
+            divPlay[track_index].classList.add('hide')
+          }
+
+          // Load and play the new track
+          loadTrack(track_index)
+          playTrack()
+        }
+
+        function prevTrack() {
+          // Go back to the last track if the
+          // current one is the first in the track list
+          if (track_index > 0) {
+            track_index -= 1
+
+            // indeks sebelumnya
+            divStop[track_index + 1].classList.add('hide')
+            divPlay[track_index + 1].classList.remove('hide')
+            // indeks saat ini
+            divStop[track_index].classList.remove('hide')
+            divPlay[track_index].classList.add('hide')
+          } else {
+            track_index = track_list.length - 1
+
+            // indeks sebelumnya
+            divStop[0].classList.add('hide')
+            divPlay[0].classList.remove('hide')
+            // indeks saat ini
+            divStop[track_index].classList.remove('hide')
+            divPlay[track_index].classList.add('hide')
+          }
+
+          // Load and play the new track
+          loadTrack(track_index)
+          playTrack()
+        }
+
+        function seekTo() {
+          // Calculate the seek position by the
+          // percentage of the seek slider
+          // and get the relative duration to the track
+          seekto = curr_track.duration * (seek_slider.value / 100)
+
+          // Set the current track position to the calculated seek position
+          curr_track.currentTime = seekto
+        }
+
+        function seekUpdate() {
+          let seekPosition = 0
+
+          // Check if the current track duration is a legible number
+          if (!isNaN(curr_track.duration)) {
+            seekPosition = curr_track.currentTime * (100 / curr_track.duration)
+            seek_slider.value = seekPosition
+
+            // Calculate the time left and the total duration
+            let currentMinutes = Math.floor(curr_track.currentTime / 60)
+            let currentSeconds = Math.floor(
+              curr_track.currentTime - currentMinutes * 60
+            )
+            let durationMinutes = Math.floor(curr_track.duration / 60)
+            let durationSeconds = Math.floor(
+              curr_track.duration - durationMinutes * 60
+            )
+
+            // Add a zero to the single digit time values
+            if (currentSeconds < 10) {
+              currentSeconds = '0' + currentSeconds
+            }
+            if (durationSeconds < 10) {
+              durationSeconds = '0' + durationSeconds
+            }
+            if (currentMinutes < 10) {
+              currentMinutes = '0' + currentMinutes
+            }
+            if (durationMinutes < 10) {
+              durationMinutes = '0' + durationMinutes
+            }
+
+            // Display the updated duration
+            curr_time.textContent = currentMinutes + ':' + currentSeconds
+            total_duration.textContent = durationMinutes + ':' + durationSeconds
+          }
+        }
+      }
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

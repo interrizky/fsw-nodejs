@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Task - Detail Ridho</title>
+    <link
+      rel="icon"
+      href="/omdb_asset/images/KB_Bukopin.jpeg"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="/omdb_asset/plugins/bootstrap/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="/omdb_asset/css/styles.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row navbar">
+        <div class="logo col-7">
+          <a
+            class="text-logo"
+            style="margin-left: 35px; font-weight: bold"
+            href="/"
+            >LOGO</a
+          >
+        </div>
+        <div class="menu col-5 d-flex flex-row-reverse justify-content-center">
+          <button type="button" class="btn btn-outline-light">SUBSCRIBE</button>
+          <div class="p-2 bd-highlight">ABOUT</div>
+          <div class="p-2 bd-highlight">PRODUCT</div>
+          <div class="p-2 bd-highlight">ARTICLES</div>
+        </div>
+      </div>
+
+      <div class="row details">
+        <div
+          class="
+            wrapper
+            poster-desc
+            col-md-12
+            p-5
+            d-flex
+            justify-content-center
+          "
+        >
+          <div
+            class="
+              poster-image
+              col-md-4
+              m-3
+              shadow-lg
+              rounded
+              justify-content-center
+            "
+            style="
+              align-content: center;
+              align-items: center;
+              text-align: center;
+              background-color: lightsteelblue;
+            "
+          ></div>
+          <div
+            class="teks-deskripsi col-md-8 m-3 shadow-lg rounded"
+            style="
+              align-content: center;
+              align-items: center;
+              text-align: left;
+              background-color: lightsteelblue;
+            "
+          >
+            <div class="deskripsi p-5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row preambules mx-auto" style="text-align: center">
+        <p class="preambule" style="font-size: 24px">
+          <i>Movie That You May Like</i>
+        </p>
+      </div>
+
+      <div class="row related-movie justify-content-center"></div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const params = Object.fromEntries(urlSearchParams.entries())
+    // console.log(params);
+    // console.log(params.id);
+    // console.log(params.title);
+
+    fetch('http://www.omdbapi.com/?apikey=54ece844&i=' + params.id)
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function (result) {
+        console.log(result)
+        for (const [key, value] of Object.entries(result)) {
+          console.log(`${key} : ${value}`)
+        }
+
+        /* poster */
+        if (result.Poster == 'N/A') {
+          result.Poster = '/omdb_asset/images/pngfind-9-transparent.png'
+        }
+
+        let images = document.querySelector('.details .poster-image')
+        for (let i = 0; i < result.Ratings.length; i++) {
+          images.insertAdjacentHTML(
+            'afterbegin',
+            `
+          <h5><b>${result.Ratings[i].Source} : </b><i>${result.Ratings[i].Value}</i></h5>
+        `
+          )
+        }
+        images.insertAdjacentHTML(
+          'afterbegin',
+          `
+        <img class="p-3" src="${result.Poster}" style="width: 75%;"></img>
+        <h5><b>${result.Title}</b> (<i>${result.Year}</i>)</h5>
+        <br/>
+      `
+        )
+
+        /* text */
+        let deskripsi = document.querySelector(
+          '.details .teks-deskripsi .deskripsi'
+        )
+        deskripsi.insertAdjacentHTML(
+          'afterbegin',
+          `
+        <h5><b>Plot : </b><i>${result.Plot}</i></h5>
+        <br/>
+        <h5><b>Actors : </b>${result.Actors}</h5>
+        <h5><b>Director : </b>${result.Director}</h5>
+        <h5><b>Writer : </b>${result.Writer}</h5> 
+        <h5><b>Production : </b>${result.Production}</h5>        
+        <br/>
+        <h5><b>Year : </b>${result.Year}</h5>
+        <h5><b>DVD : </b>${result.DVD}</h5>        
+        <h5><b>Runtime : </b>${result.Runtime}</h5>
+        <br/>        
+        <h5><b>Awards : </b>${result.Awards}</h5>
+        <h5><b>BoxOffice : </b>${result.BoxOffice}</h5>
+        <h5><b>Country : </b>${result.Country}</h5>
+        <h5><b>Genre : </b>${result.Genre}</h5>
+        <br/>
+      `
+        )
+      })
+      .then(function (data) {
+        this.data = data
+        fetch('http://www.omdbapi.com/?apikey=54ece844&s=' + params.title)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (result) {
+            let arrayBaru = []
+            arrayBaru = result.Search.slice(0, 3)
+            //arrayBaru = result.Search;
+
+            for (var j = 0; j < arrayBaru.length; j++) {
+              let isiThumb = document.querySelector('.related-movie')
+
+              if (arrayBaru[j].Poster == 'N/A') {
+                arrayBaru[j].Poster =
+                  '/omdb_asset/images/pngfind-9-transparent.png'
+              }
+
+              isiThumb.insertAdjacentHTML(
+                'beforeend',
+                `
+            <div class="wrapper-thumbnail wrapper-thumbnail-${
+              j + 1
+            } text-center shadow-lg rounded m-2 w-25 col-4">
+              <div id="thumbnail-${j + 1}" class="thumbnail-${j + 1}">
+                <image class="m-2" style="width:200px; height:200px;" src='${
+                  arrayBaru[j].Poster
+                }''></image>
+                <p class="m-2 text-wrap"><i>${arrayBaru[j].Title} (${
+                  arrayBaru[j].Year
+                })</i></p>
+              </div>
+
+              <div id="dsp-background-${j + 1}" class="dsp-background-${j + 1}">
+                <a href="/apix-ejs?id=${arrayBaru[j].imdbID}&title=${
+                  arrayBaru[j].Title
+                }">
+                  <button class="tombol-info-${
+                    j + 1
+                  } btn btn-outline-dark w-100">HRef</button>
+                </a>
+              </div>                         
+            </div>
+          `
+              )
+            }
+          })
+          .catch(function (error) {
+            this.error = error
+            console.log(this.error)
+          })
+      })
+      .catch(function (error) {
+        this.error = error
+        console.log(this.error)
+      })
+  </script>
+</html>
