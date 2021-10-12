@@ -86,13 +86,19 @@
     </div>
   </body>
   <script type="text/javascript">
+    //cara sebelum NodeJS
     const urlSearchParams = new URLSearchParams(window.location.search)
     const params = Object.fromEntries(urlSearchParams.entries())
     // console.log(params);
     // console.log(params.id);
     // console.log(params.title);
 
-    fetch('http://www.omdbapi.com/?apikey=54ece844&i=' + params.id)
+    //cara sesudah NodeJS
+    let id = '<%= id %>'
+    let title = '<%= title %>'
+    console.log(id, title)
+
+    fetch('http://www.omdbapi.com/?apikey=54ece844&i=' + id)
       .then(function (response) {
         return response.json()
       })
@@ -153,7 +159,7 @@
       })
       .then(function (data) {
         this.data = data
-        fetch('http://www.omdbapi.com/?apikey=54ece844&s=' + params.title)
+        fetch('http://www.omdbapi.com/?apikey=54ece844&s=' + title)
           .then(function (response) {
             return response.json()
           })
@@ -186,7 +192,7 @@
               </div>
 
               <div id="dsp-background-${j + 1}" class="dsp-background-${j + 1}">
-                <a href="/apix-ejs?id=${arrayBaru[j].imdbID}&title=${
+                <a href="/apix-ejs/${arrayBaru[j].imdbID}/${
                   arrayBaru[j].Title
                 }">
                   <button class="tombol-info-${

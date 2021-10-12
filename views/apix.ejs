@@ -99,7 +99,7 @@
           return response.json();
         })
         .then(function (result) {
-          console.log(result);
+          // console.log(result);
           this.result = result;
           
           if( result.Response == 'False' ){
@@ -219,7 +219,7 @@
               /* bikin div button untuk deskripsi pake insertAdjacentHTML */
               pointerDivDuaSatu.insertAdjacentHTML('afterend',`
                 <div id="dsp-background-${z+1}" class="dsp-background-${z+1}" style="position: relative; display: none;">
-                  <a href="/apix-ejs?id=${result.Search[z].imdbID}&title=${result.Search[z].Title}">
+                  <a href="/apix-ejs/${result.Search[z].imdbID}/${result.Search[z].Title}">
                     <button class="tombol-info-${z+1} btn btn-light w-100">HRef</button>
                   </a>
                   <br/>
@@ -307,7 +307,7 @@
             /* bikin div button untuk deskripsi pake insertAdjacentHTML */
             pointerDivDuaSatu.insertAdjacentHTML('afterend',`
               <div id="dsp-background-${z+1}" class="dsp-background-${z+1}" style="position: relative; display: none;">
-                <a href="/apix-ejs?id=${result.Search[z].imdbID}&title=${result.Search[z].Title}">
+                <a href="/apix-ejs/${result.Search[z].imdbID}/${result.Search[z].Title}">
                   <button class="tombol-info-${z+1} btn btn-light w-100">HRef</button>
                 </a>
                 <br/>

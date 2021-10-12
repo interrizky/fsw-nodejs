@@ -221,9 +221,9 @@
         images.insertAdjacentHTML(
           'afterbegin',
           `
-        <img class="p-3" src="${poster}" style="width: 75%;"></img>
-        <h5><b>${nama}</b></h5>
-        <h5>(<i>${harga_x}</i>)</h5>
+        <img class="p-3" src="<%= poster %>" style="width: 75%;"></img>
+        <h5><b> <%= nama %> </b></h5>
+        <h5>(<i> <%= harga_x %> </i>)</h5>
         <br/>
       `
         )
@@ -243,8 +243,8 @@
         <div class="isi-review text-justify">
           <p><i>Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis dictum fermentum nisi at tempus. Maecenas nec purus diam. Curabitur viverra dignissim velit, vel luctus sapien ultrices id. Nulla porttitor sollicitudin elementum. Aenean congue, lorem elementum convallis volutpat, augue felis tincidunt tellus, sed lacinia purus arcu sed mauris. Integer laoreet orci non sapien pharetra, ac porttitor risus finibus.</i></p>
         </div>        
-        <h5><b>Nama : </b>${nama}</h5>
-        <h5><b>Harga : </b>${harga_x}</h5>
+        <h5><b>Nama : </b> <%= nama %> </h5>
+        <h5><b>Harga : </b> <%= harga_x %> </h5>
         <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" style="text-align:center;">
         <button type="button" class="pricey tn btn-info">Buy Product? (Harga Dalam Alert)</button>
         <br/>
@@ -264,8 +264,14 @@
       priceyBtn.addEventListener('click', function () {
         // console.log(parseInt(harga))
         // console.log(parseInt(_qty));
-        const total = parseInt(harga) * parseInt(_qty);
-        alert("Harga Total adalah: "+total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}))
+        // const total = parseInt(harga) * parseInt(_qty);
+        // alert("Harga Total adalah: "+total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}))
+        let _harga = "<%= harga %>"
+        const total = parseInt(_qty) * parseInt(_harga);
+        // console.log(_harga)
+        // console.log(parseInt(_qty))
+        // console.log(total)
+        alert("Harga Total adalah: "+total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}))        
       })
 
       let arrayBaru = []
@@ -279,7 +285,7 @@
             'beforeend',
             `
           <div class="carousel-item active">
-            <a href="/flower-ejs?nama=${flower_list[j].nama}&harga=${flower_list[j].harga}&poster=${flower_list[j].poster}" class="link">
+            <a href="/flower-ejs/${flower_list[j].nama}">
               <img src="${flower_list[j].poster}" alt="First slide" />              
             </a>
           </div>
@@ -290,8 +296,8 @@
             'beforeend',
             `
         <div class="carousel-item">
-          <a href="/flower-ejs?nama=${flower_list[j].nama}&harga=${flower_list[j].harga}&poster=${flower_list[j].poster}" class="link">
-            <img src="${flower_list[j].poster}" alt="First slide" href="/flower-ejs?nama=${flower_list[j].nama}&harga=${flower_list[j].harga}&poster=${flower_list[j].poster}" />
+          <a href="/flower-ejs/${flower_list[j].nama}">
+            <img src="${flower_list[j].poster}" alt="First slide"  />
           </a>
         </div>
       `

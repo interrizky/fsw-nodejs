@@ -8,21 +8,25 @@ app.use(express.static('public'))
 
 app.listen(port, () => { console.log(`Server is running in port ${ port }`) })
 
-//Routing OMDB
-app.get('/', function(require, response) {
-  response.render('apix')
-})
-app.get('/apix-ejs', function(require, response) {
-  response.render('detail')
-})
-//Routing Flower
-app.get('/flower', function(require, response) {
-  response.render('apix_flower')
-})
-app.get('/flower-ejs', function(require, response) {
-  response.render('detail_flower')
-})
-//Routing iTunes
-app.get('/itunes', function(require, response) {
-  response.render('itunesx')
-})
+// //Routing OMDB
+// app.get('/', function(require, response) {
+//   response.render('apix')
+// })
+// app.get('/apix-ejs', function(require, response) {
+//   response.render('detail')
+// })
+// //Routing Flower
+// app.get('/flower', function(require, response) {
+//   response.render('apix_flower')
+// })
+// app.get('/flower-ejs', function(require, response) {
+//   response.render('detail_flower')
+// })
+// //Routing iTunes
+// app.get('/itunes', function(require, response) {
+//   response.render('itunesx')
+// })
+
+//Router
+const Router = require('./routes/routes')
+app.use(Router);
