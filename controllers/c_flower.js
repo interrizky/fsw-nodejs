@@ -1,10 +1,3 @@
-exports.homepage = (request, response) => {
-  response.render('apix_flower')
-}
-
-exports.details = (request, response) => {
-  let dataNama = request.params.nama
-
   let dataHarga = ""
   let dataPoster = ""
 
@@ -56,6 +49,13 @@ exports.details = (request, response) => {
     }
   ]
 
+exports.homepage = (request, response) => {
+  response.render('apix_flower')
+}
+
+exports.details = (request, response) => {
+  let dataNama = request.params.nama
+
   for (var i = 0; i < flower_list.length; i++) {
     if (flower_list[i].nama == dataNama) {
       dataHarga = flower_list[i].harga;
@@ -69,5 +69,14 @@ exports.details = (request, response) => {
     harga: dataHarga,
     harga_x: parseInt(dataHarga).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
   })
+}
 
+// membuat API
+exports.list_api = (request, response) => {
+  response.send(
+    {
+      message: "success",
+      result: flower_list
+    }
+  );
 }

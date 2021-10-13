@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List API</title>
+    <link
+      rel="icon"
+      href="/flower_asset/images/KB_Bukopin.jpeg"
+      type="image/x-icon"
+    />
+    <!-- bootstrap -->
+    <!-- CSS only -->
+    <link
+      rel="stylesheet"
+      href="/flower_asset/plugins/bootstrap/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="/flower_asset/css/styles.css" />
+  </head>
+  <body>
+    <script type="text/javascript">
+      fetch('/listFlowerAPI')
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (result) {
+          console.log(result)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    </script>
+  </body>
+</html>

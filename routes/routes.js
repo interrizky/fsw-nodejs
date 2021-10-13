@@ -25,6 +25,7 @@ routes.get('/apix-ejs/:imdbID/:Title', omdb_controller.details);
 // })
 routes.get('/flower', flower_controller.homepage);
 routes.get('/flower-ejs/:nama', flower_controller.details);
+routes.get('/listFlowerAPI', flower_controller.list_api)
 
 //Routing iTunes
 // routes.get('/itunes', function(require, response) {

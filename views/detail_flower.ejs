@@ -256,53 +256,57 @@
       
       let qty = document.querySelector('.qty');
       qty.addEventListener('click', function(){
-        // console.log(qty.value);
         _qty = qty.value;
       })
 
       let priceyBtn = document.querySelector('.pricey')
       priceyBtn.addEventListener('click', function () {
-        // console.log(parseInt(harga))
-        // console.log(parseInt(_qty));
-        // const total = parseInt(harga) * parseInt(_qty);
-        // alert("Harga Total adalah: "+total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}))
         let _harga = "<%= harga %>"
         const total = parseInt(_qty) * parseInt(_harga);
-        // console.log(_harga)
-        // console.log(parseInt(_qty))
-        // console.log(total)
         alert("Harga Total adalah: "+total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}))        
       })
 
-      let arrayBaru = []
-      arrayBaru = flower_list.slice(0, 9)
+      fetch('/listFlowerAPI')
+      .then(function(response){
+        return response.json()
+      })
+      .then(function(result){
+        let flower_list = result.result
+        
+        let arrayBaru = []
+        arrayBaru = flower_list.slice(0, 9)
 
-      for (var j = 0; j < arrayBaru.length; j++) {
-        let isiCarousel = document.querySelector('.carousel-inner')
+        for (var j = 0; j < arrayBaru.length; j++) {
+          let isiCarousel = document.querySelector('.carousel-inner')
 
-        if (j == 0) {
-          isiCarousel.insertAdjacentHTML(
-            'beforeend',
-            `
-          <div class="carousel-item active">
+          if (j == 0) {
+            isiCarousel.insertAdjacentHTML(
+              'beforeend',
+              `
+            <div class="carousel-item active">
+              <a href="/flower-ejs/${flower_list[j].nama}">
+                <img src="${flower_list[j].poster}" alt="First slide" />              
+              </a>
+            </div>
+          `
+            )
+          } else
+            isiCarousel.insertAdjacentHTML(
+              'beforeend',
+              `
+          <div class="carousel-item">
             <a href="/flower-ejs/${flower_list[j].nama}">
-              <img src="${flower_list[j].poster}" alt="First slide" />              
+              <img src="${flower_list[j].poster}" alt="First slide"  />
             </a>
           </div>
         `
-          )
-        } else
-          isiCarousel.insertAdjacentHTML(
-            'beforeend',
-            `
-        <div class="carousel-item">
-          <a href="/flower-ejs/${flower_list[j].nama}">
-            <img src="${flower_list[j].poster}" alt="First slide"  />
-          </a>
-        </div>
-      `
-          )
-      }
+            )
+        }        
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+
     </script>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
