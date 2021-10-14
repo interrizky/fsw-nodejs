@@ -2,8 +2,16 @@ const express = require('express')
 const app = express()
 const port = 9700
 
+const bodyParser = require('body-parser');
+
+//Body Parser things
+app.use(bodyParser.urlencoded( {extended: true} ))
+app.use(bodyParser.json())
+
+
 //Reading CSS Folders & Files in Public Folder
-app.set('view engine', 'ejs')
+app.set('views', './views') // specify the views directory
+app.set('view engine', 'ejs') // register the template engine
 app.use(express.static('public'))
 
 app.listen(port, () => { console.log(`Server is running in port ${ port }`) })

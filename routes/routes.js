@@ -1,10 +1,11 @@
 const express = require('express');
-const routes = express.Router()
+const routes = express.Router();
 
 //Controller (menyambungkan dari controller ke Routes)
 const flower_controller = require('../controllers/c_flower')
 const omdb_controller = require('../controllers/c_omdb')
 const itunes_controller = require('../controllers/c_itunes')
+const test_controller = require('../controllers/c_test')
 
 //Routing OMDB
 // routes.get('/', function(require, response) {
@@ -32,6 +33,14 @@ routes.get('/listFlowerAPI', flower_controller.list_api)
 //   response.render('itunesx')
 // })
 routes.get('/itunes', itunes_controller.homepage);
+
+//POST FORM-1
+routes.get('/view_test', test_controller.viewing);
+routes.post('/postTest', test_controller.sending);
+//POST FORM-2
+routes.get('/view_test_dua', test_controller.viewingdua);
+routes.post('/postTestDua', test_controller.sendingdua);
+
 
 //Export ke Serverx.JS
 module.exports = routes;
