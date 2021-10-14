@@ -15,109 +15,45 @@
   <body>
     <!-- Name. Email, Address, Divisi, Tempat Tanggal Lahir. Cita - Cita, Harapan     -->
     <div class="container-fluid">
-<!--       <form method="POST" action="/postTest"> -->
-        <div class="wrapper-form">
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Name</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="exampleFormControlInput1"
-              id="exampleFormControlInput1"
-              placeholder="Your Name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label"
-              >Email address</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              name="exampleFormControlInput2"
-              id="exampleFormControlInput2"
-              placeholder="name@example.com"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label"
-              >Address</label
-            >
-            <textarea
-              class="form-control"
-              id="exampleFormControlTextarea1"
-              name="exampleFormControlTextarea1"
-              rows="3"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput3" class="form-label"
-              >Division</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput3"
-              name="exampleFormControlInput3"
-              placeholder="Your Division"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput4" class="form-label"
-              >Tempat Lahir</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput4"
-              name="exampleFormControlInput4"
-              placeholder="Your Place Birth"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput5" class="form-label"
-              >Tanggal Lahir</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput5"
-              name="exampleFormControlInput5"
-              placeholder="Your Date Birth"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput6" class="form-label"
-              >Cita - Cita</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput6"
-              name="exampleFormControlInput6"
-              placeholder="Your Dream"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea2" class="form-label"
-              >Harapan</label
-            >
-            <textarea
-              class="form-control"
-              id="exampleFormControlTextarea2"
-              name="exampleFormControlTextarea2"
-              rows="3"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <button type="button" id="btnSubmit" class="btn btn-primary">
-              SUBMIT
-            </button>
-          </div>
+      <div class="wrapper-form">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Name</label>
+          <input type="text" class="form-control" name="exampleFormControlInput1" id="exampleFormControlInput1" placeholder="Your Name"/>
         </div>
-<!--       </form> -->
+        <div class="mb-3">
+          <label for="exampleFormControlInput2" class="form-label">Email address</label>
+          <input type="email" class="form-control" name="exampleFormControlInput2" id="exampleFormControlInput2" placeholder="name@example.com"/>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" rows="3" placeholder="Address"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput3" class="form-label">Division</label>
+          <input type="text" class="form-control" id="exampleFormControlInput3" name="exampleFormControlInput3" placeholder="Your Division"/>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput4" class="form-label">Tempat Lahir</label>
+          <input type="text" class="form-control" id="exampleFormControlInput4" name="exampleFormControlInput4" placeholder="Your Place Birth"/>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput5" class="form-label">Tanggal Lahir</label>
+          <input type="text" class="form-control" id="exampleFormControlInput5" name="exampleFormControlInput5" placeholder="Your Date Birth"/>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput6" class="form-label">Cita - Cita</label>
+          <input type="text" class="form-control" id="exampleFormControlInput6" name="exampleFormControlInput6" placeholder="Your Dream"/>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea2" class="form-label">Harapan</label>
+          <textarea class="form-control" id="exampleFormControlTextarea2" name="exampleFormControlTextarea2" rows="3" placeholder="Harapan"></textarea>
+        </div>
+        <div class="mb-3">
+          <button type="button" id="btnSubmit" class="btn btn-primary">
+            SUBMIT
+          </button>
+        </div>
+      </div>
     </div>
     <script type="text/javascript">
       let btnSubmit = document.getElementById('btnSubmit')
@@ -155,16 +91,16 @@
             harapan: harapan
           })
         })
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (risultato) {
-            console.log('Hi, ' + risultato.nama + ' (' + risultato.email + ') - Departement: ' + risultato.divisi);
-            alert('Hi, ' + risultato.nama + ' (' + risultato.email + ') - Departement: ' + risultato.divisi);
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (risultato) {
+          alert('Hi, ' + risultato.nama + ' (' + risultato.email + ') - Departement: ' + risultato.divisi);
+          console.log('Hi, ' + risultato.nama + ' (' + risultato.email + ') - Departement: ' + risultato.divisi);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
       })
     </script>
   </body>

@@ -16,91 +16,44 @@
     <!-- Name. Email, Address, Divisi, Tempat Tanggal Lahir. Cita - Cita, Harapan     -->
     <div class="container-fluid">
       <div class="wrapper-form">
-        <div class="mb-3">
-          <h1>SUKSES!</h1>
-        </div>
+        <h1>SUKSES!</h1>
         <br />
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput1" class="form-label col-md-2">Name</label>
           <input type="text" class="form-control" name="exampleFormControlInput1" id="exampleFormControlInput1" placeholder="Your Name" value="<%= namaAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput2" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            class="form-control"
-            name="exampleFormControlInput2"
-            id="exampleFormControlInput2"
-            placeholder="name@example.com"
-            value="<%= emailAja %>"
-          />
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput2" class="form-label col-md-2">Email address</label>
+          <input type="email" class="form-control" name="exampleFormControlInput2" id="exampleFormControlInput2" placeholder="name@example.com" value="<%= emailAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label"
-            >Address</label
-          >
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlTextarea1" class="form-label col-md-2">Address</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" rows="3"><%= addressAja %></textarea>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput3" class="form-label"
-            >Division</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput3"
-            name="exampleFormControlInput3"
-            placeholder="Your Division"
-            value="<%= divisiAja %>"
-          />
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput3" class="form-label col-md-2">Division</label>
+          <input type="text" class="form-control" id="exampleFormControlInput3" name="exampleFormControlInput3" placeholder="Your Division" value="<%= divisiAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput4" class="form-label"
-            >Tempat Lahir</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput4"
-            name="exampleFormControlInput4"
-            placeholder="Your Place Birth"
-            value="<%= tempatLahirAja %>"
-          />
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput4" class="form-label col-md-2">Tempat Lahir</label>
+          <input type="text" class="form-control" id="exampleFormControlInput4" name="exampleFormControlInput4" placeholder="Your Place Birth" value="<%= tempatLahirAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput5" class="form-label"
-            >Tanggal Lahir</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput5"
-            name="exampleFormControlInput5"
-            placeholder="Your Date Birth"
-            value="<%= tanggalLahirAja %>"
-          />
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput5" class="form-label col-md-2">Tanggal Lahir</label>
+          <input type="text" class="form-control" id="exampleFormControlInput5" name="exampleFormControlInput5" placeholder="Your Date Birth" value="<%= tanggalLahirAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput6" class="form-label"
-            >Cita - Cita</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput6"
-            name="exampleFormControlInput6"
-            placeholder="Your Dream"
-            value="<%= citaAja %>"
-          />
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlInput6" class="form-label col-md-2">Cita - Cita</label>
+          <input type="text" class="form-control" id="exampleFormControlInput6" name="exampleFormControlInput6" placeholder="Your Dream" value="<%= citaAja %>"/>
         </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea2" class="form-label"
-            >Harapan</label
-          >
+        <div class="mb-3 d-flex">
+          <label for="exampleFormControlTextarea2" class="form-label col-md-2">Harapan</label>
           <textarea class="form-control" id="exampleFormControlTextarea2" name="exampleFormControlTextarea2" rows="3"><%= harapanAja %></textarea>
         </div>
+        <div class="mb-3 d-flex">
+          <label for="kosongan" class="form-label col-md-2"></label>
+          <button type="button" id="btnBack" class="btn btn-danger w-25" onclick="location.href='http://localhost:9700/view_test';">BACK</button>
+        </div>        
       </div>
     </div>
   </body>

@@ -23,75 +23,76 @@
             <h1>FORM INPUT</h1>
           <% } %>          
           <br/>          
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Name</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput1" class="form-label col-md-2">Name</label>
             <% if(locals.namaAja){ %>
               <input type="text" class="form-control" name="exampleFormControlInput1" id="exampleFormControlInput1" placeholder="Your Name" value="<%= namaAja %>"/>
             <% } else { %>            
               <input type="text" class="form-control" name="exampleFormControlInput1" id="exampleFormControlInput1" placeholder="Your Name"/>
             <% } %>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">Email address</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput2" class="form-label col-md-2">Email address</label>
             <% if(locals.emailAja){ %>
               <input type="email" class="form-control" name="exampleFormControlInput2" id="exampleFormControlInput2" placeholder="name@example.com" value="<%= emailAja %>"/>
             <% } else { %>            
               <input type="email" class="form-control" name="exampleFormControlInput2" id="exampleFormControlInput2" placeholder="name@example.com"/>
             <% } %>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlTextarea1" class="form-label col-md-2">Address</label>
             <% if(locals.addressAja){ %>
               <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" rows="3" placeholder="Address"><%= addressAja %></textarea>
             <% } else { %>            
               <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1"rows="3" placeholder="Address"></textarea>
             <% } %>            
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput3" class="form-label">Division</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput3" class="form-label col-md-2">Division</label>
             <% if(locals.divisiAja){ %>
               <input type="text" class="form-control" id="exampleFormControlInput3" name="exampleFormControlInput3" placeholder="Your Division" value="<%= divisiAja %>"/>            
             <% } else { %>            
               <input type="text" class="form-control" id="exampleFormControlInput3" name="exampleFormControlInput3"placeholder="Your Division"/>
             <% } %>            
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput4" class="form-label">Tempat Lahir</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput4" class="form-label col-md-2">Tempat Lahir</label>
             <% if(locals.tempatLahirAja){ %>
               <input type="text" class="form-control" id="exampleFormControlInput4" name="exampleFormControlInput4" placeholder="Your Place Birth" value="<%= tempatLahirAja %>"/>            
             <% } else { %>     
               <input type="text" class="form-control" id="exampleFormControlInput4" name="exampleFormControlInput4" placeholder="Your Place Birth"/>
             <% } %>            
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput5" class="form-label">Tanggal Lahir</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput5" class="form-label col-md-2">Tanggal Lahir</label>
             <% if(locals.tanggalLahirAja){ %>            
               <input type="text" class="form-control" id="exampleFormControlInput5" name="exampleFormControlInput5" placeholder="Your Date Birth" value="<%= tanggalLahirAja %>"/>            
             <% } else { %>                   
               <input type="text" class="form-control" id="exampleFormControlInput5" name="exampleFormControlInput5" placeholder="Your Date Birth"/>
             <% } %>                        
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput6" class="form-label">Cita - Cita</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlInput6" class="form-label col-md-2">Cita - Cita</label>
             <% if(locals.tanggalLahirAja){ %> 
               <input type="text" class="form-control" id="exampleFormControlInput6" name="exampleFormControlInput6" placeholder="Your Dream" value="<%= citaAja %>"/>            
             <% } else { %> 
               <input type="text" class="form-control" id="exampleFormControlInput6" name="exampleFormControlInput6" placeholder="Your Dream"/>
             <% } %>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea2" class="form-label">Harapan</label>
+          <div class="mb-3 d-flex">
+            <label for="exampleFormControlTextarea2" class="form-label col-md-2">Harapan</label>
             <% if(locals.harapanAja){ %> 
               <textarea class="form-control" id="exampleFormControlTextarea2" name="exampleFormControlTextarea2" rows="3" placeholder="Harapan"><%= harapanAja %></textarea>
             <% } else { %>             
               <textarea class="form-control" id="exampleFormControlTextarea2" name="exampleFormControlTextarea2" rows="3" placeholder="Harapan"></textarea>
             <% } %>            
           </div>
-          <div class="mb-3">
+          <div class="mb-3 d-flex">
+            <label for="kosongan" class="form-label col-md-2"></label>
             <% if(locals.namaAja){ %> 
-              <button type="button" id="btnBack" class="btn btn-danger" onclick="location.href='http://localhost:9700/view_test';">BACK</button>
+              <button type="button" id="btnBack" class="btn btn-danger w-25" onclick="location.href='http://localhost:9700/view_test';">BACK</button>
             <% } else { %>
-              <button type="submit" class="btn btn-primary">SUBMIT</button>
+              <button type="submit" class="btn btn-primary w-25">SUBMIT</button>
             <% } %>       
           </div>
         </div>

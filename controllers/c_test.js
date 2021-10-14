@@ -17,20 +17,7 @@ exports.sending = (request, response) => {
   //   response.send(result)
   // });
   // let alamatAja = datax.exampleFormControlTextarea1;
-  // response.render('view_test_result', {
-  //   namaAja: datax.exampleFormControlInput1,
-  //   emailAja: datax.exampleFormControlInput2,
-  //   addressAja: datax.exampleFormControlTextarea1,
-  //   divisiAja: datax.exampleFormControlInput3,
-  //   tempatLahirAja: datax.exampleFormControlInput4,
-  //   tanggalLahirAja: datax.exampleFormControlInput5,
-  //   citaAja: datax.exampleFormControlInput6,
-  //   harapanAja: datax.exampleFormControlTextarea2
-  // });  
-
-  /* menampillan di halaman yang sama beserta isinya - EJS */  
-  /* sukses */
-  response.render('view_test', {
+  response.render('view_test_result', {
     namaAja: datax.exampleFormControlInput1,
     emailAja: datax.exampleFormControlInput2,
     addressAja: datax.exampleFormControlTextarea1,
@@ -39,7 +26,20 @@ exports.sending = (request, response) => {
     tanggalLahirAja: datax.exampleFormControlInput5,
     citaAja: datax.exampleFormControlInput6,
     harapanAja: datax.exampleFormControlTextarea2
-  });    
+  });  
+
+  /* menampillan di halaman yang sama beserta isinya - EJS */  
+  /* sukses */
+  // response.render('view_test', {
+  //   namaAja: datax.exampleFormControlInput1,
+  //   emailAja: datax.exampleFormControlInput2,
+  //   addressAja: datax.exampleFormControlTextarea1,
+  //   divisiAja: datax.exampleFormControlInput3,
+  //   tempatLahirAja: datax.exampleFormControlInput4,
+  //   tanggalLahirAja: datax.exampleFormControlInput5,
+  //   citaAja: datax.exampleFormControlInput6,
+  //   harapanAja: datax.exampleFormControlTextarea2
+  // });    
 }
 
 exports.viewingdua = (request, response) => {
@@ -49,8 +49,8 @@ exports.viewingdua = (request, response) => {
 exports.sendingdua = (request, response) => {
   let datax = request.body;
   console.log(datax);
-  /* menampilkan di halaman baru */
-  //gak bisa redirect ke halaman baru
+  console.log("data di atas merupakan kirimin button&fetch-post")
+
+  /* send alert */
   response.send(datax)
-  /* response.send(request.body); */
 }
