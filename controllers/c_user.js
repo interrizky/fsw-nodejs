@@ -2,11 +2,11 @@ const userModel = require('../models/m_user')
 
 exports.create = (request, response) => {
   const user = new userModel({
-    username: "username bukan aku",
-    password: "password bukan aku",  
-    email: "email bukan aku",
-    address: "address bukan aku",
-    age: "17"
+    username: "username aku",
+    password: "password aku",  
+    email: "email aku",
+    address: "address aku",
+    age: "20"
   })
 
   user.save(user)
@@ -25,7 +25,7 @@ exports.create = (request, response) => {
 }
 
 exports.read = (request, response) => {
-  userModel.find()
+  userModel.find( {username: "username bukan aku"} )
   .then(resp => {
     response.send({
       message: "data read successfully",
