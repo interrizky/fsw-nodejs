@@ -6,6 +6,7 @@ const flower_controller = require('../controllers/c_flower')
 const omdb_controller = require('../controllers/c_omdb')
 const itunes_controller = require('../controllers/c_itunes')
 const test_controller = require('../controllers/c_test')
+const user_controller = require('../controllers/c_user')
 
 //Routing OMDB
 // routes.get('/', function(require, response) {
@@ -41,6 +42,11 @@ routes.post('/postTest', test_controller.sending);
 routes.get('/view_test_dua', test_controller.viewingdua);
 routes.post('/postTestDua', test_controller.sendingdua);
 
+//MongoDB
+routes.get('/mongoCreate', user_controller.create);
+routes.get('/mongoRead', user_controller.read);
+routes.get('/mongoUpdate', user_controller.update);
+routes.get('/mongoDelete', user_controller.delete);
 
 //Export ke Serverx.JS
 module.exports = routes;

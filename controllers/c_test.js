@@ -4,33 +4,23 @@ exports.viewing = (request, response) => {
 
 exports.sending = (request, response) => {
   let datax = request.body;
-  console.log(datax);  
 
+  /* happened in backend */
+  console.log(datax);
+  console.log("data di atas merupakan kirimin submit&form post-action")
+
+  /* send data to front-end */
   /* menampilkan di halaman baru namun isinya aja */
   /* sukses */
   // response.send(datax)  
 
-  /* menampillan di halaman lain beserta isinya - EJS */
+  /* menampillan di halaman baru beserta isinya - EJS */
   /* sukses */
   // let namaAja = datax.exampleFormControlInput1
   // response.render('view_test_result', {namaAja}, function(err, result) {
   //   response.send(result)
   // });
-  // let alamatAja = datax.exampleFormControlTextarea1;
-  response.render('view_test_result', {
-    namaAja: datax.exampleFormControlInput1,
-    emailAja: datax.exampleFormControlInput2,
-    addressAja: datax.exampleFormControlTextarea1,
-    divisiAja: datax.exampleFormControlInput3,
-    tempatLahirAja: datax.exampleFormControlInput4,
-    tanggalLahirAja: datax.exampleFormControlInput5,
-    citaAja: datax.exampleFormControlInput6,
-    harapanAja: datax.exampleFormControlTextarea2
-  });  
-
-  /* menampillan di halaman yang sama beserta isinya - EJS */  
-  /* sukses */
-  // response.render('view_test', {
+  // response.render('view_test_result', {
   //   namaAja: datax.exampleFormControlInput1,
   //   emailAja: datax.exampleFormControlInput2,
   //   addressAja: datax.exampleFormControlTextarea1,
@@ -39,7 +29,21 @@ exports.sending = (request, response) => {
   //   tanggalLahirAja: datax.exampleFormControlInput5,
   //   citaAja: datax.exampleFormControlInput6,
   //   harapanAja: datax.exampleFormControlTextarea2
-  // });    
+  // });  
+
+  /* menampillan di halaman yang sama beserta isinya - EJS */  
+  /* sukses */
+  response.render('view_test', {
+    namaAja: datax.exampleFormControlInput1,
+    emailAja: datax.exampleFormControlInput2,
+    addressAja: datax.exampleFormControlTextarea1,
+    divisiAja: datax.exampleFormControlInput3,
+    tempatLahirAja: datax.exampleFormControlInput4,
+    tanggalLahirAja: datax.exampleFormControlInput5,
+    citaAja: datax.exampleFormControlInput6,
+    harapanAja: datax.exampleFormControlTextarea2
+  });
+  // $this->load->view('', data);
 }
 
 exports.viewingdua = (request, response) => {
@@ -48,9 +52,11 @@ exports.viewingdua = (request, response) => {
 
 exports.sendingdua = (request, response) => {
   let datax = request.body;
+
+  /* happened in backend - output appears in Terminal */
   console.log(datax);
   console.log("data di atas merupakan kirimin button&fetch-post")
 
-  /* send alert */
+  /* sending to frontend - catch in callback */
   response.send(datax)
 }

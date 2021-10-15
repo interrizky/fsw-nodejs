@@ -35,6 +35,10 @@ app.listen(port, () => { console.log(`Server is running in port ${ port }`) })
 //   response.render('itunesx')
 // })
 
+//Models MongoDB
+const connMongoDB = require('./routes/connection')
+connMongoDB();
+
 //Router
 const Router = require('./routes/routes')
 app.use(Router);
