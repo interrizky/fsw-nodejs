@@ -1,5 +1,4 @@
 /* Create Schema */
-
 const Mongoose = require('mongoose');
 
 var Schema = new Mongoose.Schema({
@@ -10,6 +9,5 @@ var Schema = new Mongoose.Schema({
   age: { type: String }
 })
 
-const identification = Mongoose.model('user', Schema);
-
+const identification = Mongoose.model('users', Schema);
 module.exports = identification

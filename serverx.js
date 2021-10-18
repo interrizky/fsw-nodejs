@@ -2,11 +2,16 @@ const express = require('express')
 const app = express()
 const port = 9700
 
-const bodyParser = require('body-parser');
+/* body-parser deprecated */
+// const bodyParser = require('body-parser');
 
-//Body Parser things
-app.use(bodyParser.urlencoded( {extended: true} ))
-app.use(bodyParser.json())
+//Body Parser things - deprecated
+// app.use(bodyParser.urlencoded( {extended: true} ))
+// app.use(bodyParser.json())
+
+/* As A Replacement of not using bodyParser */
+app.use(express.urlencoded( {extended: true} ))
+app.use(express.json())
 
 
 //Reading CSS Folders & Files in Public Folder
@@ -35,7 +40,7 @@ app.listen(port, () => { console.log(`Server is running in port ${ port }`) })
 //   response.render('itunesx')
 // })
 
-//Models MongoDB
+//Routes Connection - MongoDB
 const connMongoDB = require('./routes/connection')
 connMongoDB();
 

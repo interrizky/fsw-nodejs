@@ -25,7 +25,8 @@ exports.create = (request, response) => {
 }
 
 exports.read = (request, response) => {
-  userModel.find( {username: "username bukan aku"} )
+  // userModel.find( {username: "username bukan aku"} )
+  userModel.find()
   .then(resp => {
     response.send({
       message: "data read successfully",
